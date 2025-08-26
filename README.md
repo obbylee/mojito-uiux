@@ -1,4 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### Mojito: The Spirit of Summer Cocktails
+
+A modern web experience showcasing a curated selection of cocktails, blending premium ingredients, creative flair, and timeless recipes. This project highlights a passion for mixology through a visually stunning and performant digital interface.
+
+---
+
+## 📸 Screenshot
+
+Here's a glimpse of the Mojito landing page:
+
+![Screenshot of the Mojito Landing Page](public/images/mojito.png)
+
+---
+
+## 🚀 Technologies Used
+
+- **Next.js**: React framework for production.
+- **Tailwind CSS (v4+)**: Utility-first CSS framework.
+- **GSAP**: Professional-grade JavaScript animation library.
+
+---
+
+## ✨ Key Features
+
+- **Interactive Hero Section:** A dynamic video background with scroll-based animations.
+- **Fluid Typography:** Captivating text effects using GSAP's SplitText plugin.
+- **Scroll-Driven Animations:** Elements are animated into view using GSAP's ScrollTrigger.
+- **Responsive Design:** Optimized for a seamless experience across all devices.
+
+---
 
 ## Getting Started
 
@@ -18,19 +47,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 📚 Learning & Acknowledgments
 
-## Learn More
+This project is a direct result of the incredible learning resources provided by **jsmastery.pro** and **Adrian Hajdin ([@adrianhajdin](https://github.com/adrianhajdin))**.
 
-To learn more about Next.js, take a look at the following resources:
+Completed as part of an online course to deepen my understanding of GSAP. Key concepts learned include:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Imperative vs. Declarative Animation: Integrating imperative GSAP animations with React's declarative nature using the useGSAP hook.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Pinning and Scrubbing: Creating scroll-based animations where element movement is directly tied to the scroll position.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Advanced Text Effects: Using GSAP's SplitText to create complex character and word-level animations.
