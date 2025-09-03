@@ -16,6 +16,11 @@ const Hero = () => {
 
   useGSAP(
     () => {
+      // Add an early return if the refs are not yet available
+      if (!videoRef.current || !heroSectionRef.current) {
+        return;
+      }
+
       // Create a main timeline for all hero animations
       const masterTl = gsap.timeline();
 
@@ -60,34 +65,50 @@ const Hero = () => {
       const startValue = isMobile ? "top 50%" : "center 60%";
       const endValue = isMobile ? "120% top" : "bottom top";
 
-      const videoTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: videoRef.current,
-          start: startValue,
-          end: endValue,
-          scrub: true,
-          pin: true,
-        },
-      });
+      let videoTl: gsap.core.Timeline | null = null;
+
+      const createVideoTimeline = () => {
+        // Clear any existing timelines to prevent duplicates on hot reloads
+        if (videoTl) {
+          videoTl.kill();
+        }
+
+        videoTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: videoRef.current,
+            start: startValue,
+            end: endValue,
+            scrub: true,
+            pin: true,
+          },
+        });
+
+        videoTl.to(videoRef.current, {
+          currentTime: videoRef.current!.duration,
+        });
+      };
 
       if (videoRef.current) {
-        // Use a more robust check and an event listener
-        const onMetadataLoaded = () => {
-          videoTl.to(videoRef.current, {
-            currentTime: videoRef.current!.duration,
-          });
-        };
-        videoRef.current.addEventListener("loadedmetadata", onMetadataLoaded);
+        // Check if the video's metadata is already loaded (common on reloads)
+        if (videoRef.current.readyState >= 1) {
+          createVideoTimeline();
+        } else {
+          // If not, wait for the metadata to load
+          const onMetadataLoaded = () => {
+            createVideoTimeline();
+          };
+          videoRef.current.addEventListener("loadedmetadata", onMetadataLoaded);
 
-        // Cleanup the event listener on unmount
-        return () => {
-          if (videoRef.current) {
-            videoRef.current.removeEventListener(
-              "loadedmetadata",
-              onMetadataLoaded
-            );
-          }
-        };
+          // Cleanup the event listener on unmount
+          return () => {
+            if (videoRef.current) {
+              videoRef.current.removeEventListener(
+                "loadedmetadata",
+                onMetadataLoaded
+              );
+            }
+          };
+        }
       }
     },
     { scope: heroSectionRef, dependencies: [isMobile] }
@@ -149,6 +170,7 @@ const Hero = () => {
       <div className="video absolute inset-0">
         <video ref={videoRef} muted playsInline preload="auto">
           <source src="/videos/output.mp4" type="video/mp4" />
+          {/* className="absolute left-0 top-0 size-full object-cover object-center" */}
         </video>
       </div>
     </>
